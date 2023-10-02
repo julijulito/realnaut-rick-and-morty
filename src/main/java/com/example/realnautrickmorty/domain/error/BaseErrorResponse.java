@@ -9,6 +9,9 @@ import org.springframework.http.HttpStatusCode;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
 public class BaseErrorResponse {
+
     private final HttpStatusCode status;
+
     private final String reason;
+
 }

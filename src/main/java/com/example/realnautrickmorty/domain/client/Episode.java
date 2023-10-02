@@ -11,6 +11,7 @@ import java.util.Locale;
 public class Episode {
 
     private String name;
+
     @JsonProperty(value = "air_date")
     private String airDate;
 
