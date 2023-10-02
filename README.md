@@ -45,6 +45,12 @@ cd your-project
 ./gradlew build
 ```
 
+### Run the Unit Tests
+
+```bash
+./gradlew test
+```
+
 ### Run the application
 ```bash
 ./gradlew bootRun
@@ -61,3 +67,11 @@ To use this service, you can make a GET request to the following endpoint:
 
 ```http
 GET http://localhost:8080/search-character-appearance?name=Rick+Sanchez
+```
+
+### Swagger
+Swagger specification can be found in the following URL once the service is running:
+
+```http
+http://localhost:8080/swagger-ui/index.html
+```

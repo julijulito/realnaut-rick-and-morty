@@ -1,4 +1,4 @@
-package com.example.realnautrickmorty.domain.model;
+package com.example.realnautrickmorty.domain.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;

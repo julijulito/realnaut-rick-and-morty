@@ -1,9 +1,10 @@
-package com.example.realnautrickmorty.application.service;
+package com.example.realnautrickmorty.adapter.client;
 
-import com.example.realnautrickmorty.application.ports.RickAndMortyClient;
-import com.example.realnautrickmorty.domain.client.CharacterApiResponse;
+import com.example.realnautrickmorty.application.config.RickAndMortyApiConfig;
+import com.example.realnautrickmorty.domain.client.RickAndMortyApiResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.AllArgsConstructor;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -13,8 +14,11 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 @Service
+@AllArgsConstructor
+@EnableConfigurationProperties(RickAndMortyApiConfig.class)
 public class RickAndMortyClientImpl implements RickAndMortyClient {
-    private static final String API_URL = "https://rickandmortyapi.com/graphql";
+
+    private RickAndMortyApiConfig apiConfig;
 
     private static final String CHARACTER_GRAPHQL_QUERY =
                     "{\"query\":\"query {\\n    characters(filter: { name: \\\"%s\\\" }) " +
@@ -22,18 +26,16 @@ public class RickAndMortyClientImpl implements RickAndMortyClient {
                     "episode {\\n          name\\n\\t\\t\\t\\t\\tair_date\\n\\t\\t\\t\\t}\\n\\t\\t\\t}\\n\\t}\\n}\"}";
 
     @Override
-    public CharacterApiResponse getCharacterAppearanceInfo(final String characterName) throws IOException, InterruptedException {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public RickAndMortyApiResponse getCharacterAppearanceInfo(final String characterName) throws IOException, InterruptedException {
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(API_URL))
+                .uri(URI.create(apiConfig.getApiUrl()))
                 .header("Content-Type", "application/json")
                 .method("POST", HttpRequest.BodyPublishers.ofString(createGraphQLQuery(characterName)))
                 .build();
-
+        final ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.readValue(
                 HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString()).body(),
-                CharacterApiResponse.class
-        );
+                RickAndMortyApiResponse.class);
     }
 
     private String createGraphQLQuery(final String characterName) {

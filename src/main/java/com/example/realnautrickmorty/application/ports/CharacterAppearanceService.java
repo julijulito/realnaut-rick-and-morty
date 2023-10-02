@@ -1,8 +1,11 @@
 package com.example.realnautrickmorty.application.ports;
 
-import com.example.realnautrickmorty.domain.model.CharacterAppearanceData;
+import com.example.realnautrickmorty.domain.rest.CharacterAppearanceData;
+import org.springframework.stereotype.Service;
 
+@Service
 public interface CharacterAppearanceService {
 
-    CharacterAppearanceData getCharacterInfo(final String characterName);
+    CharacterAppearanceData getCharacterAppearanceData(final String characterName);
+
 }

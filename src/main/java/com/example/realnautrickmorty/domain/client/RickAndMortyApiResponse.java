@@ -1,7 +1,7 @@
 package com.example.realnautrickmorty.domain.client;
 
 @lombok.Data
-public class CharacterApiResponse {
+public class RickAndMortyApiResponse {
 
     private Data data;
 

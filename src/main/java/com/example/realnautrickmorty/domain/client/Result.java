@@ -10,4 +10,5 @@ public class Result {
     private String name;
 
     private List<Episode> episode;
+
 }
